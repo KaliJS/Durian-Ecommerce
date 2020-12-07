@@ -19,11 +19,12 @@
                   <th class="table-plus datatable-nosort">Id</th>
                   <th>Name</th>
                   <th>Variants</th>
+                  <th>SKU</th>
                   <th>Status</th>
-                  <th>Description</th>
+                  
                   <th>Category</th>
                   
-                  <th>SKU</th>
+                  
                   <th>In Stock</th>
                   <th>Images</th>
                   <th class="datatable-nosort">Action</th>
@@ -36,15 +37,17 @@
                   <td class="table-plus">{{$c->id}}</td>
                   
                   <td>{{$c->name}} </td>
-
+                  
                   <td>
 
 
                     <div class="col-md-4 col-sm-12">
                         <div class="pd-20 height-100-p">
-                           <a href="#" class="btn-block" data-toggle="modal" data-target="#success-modal{{$c->id}}" type="button">
-                              View
+                          <div class="badge badge-success">
+                           <a href="#" class="btn-block text-white" data-toggle="modal" data-target="#success-modal{{$c->id}}" type="button">
+                              <i class="dw dw-eye"></i> View
                            </a>
+                         </div>
                            <div class="modal fade" id="success-modal{{$c->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                               <div class="modal-dialog modal-dialog-centered" role="document">
                                  <div class="modal-content">
@@ -61,6 +64,7 @@
                                                       <th scope="col">Unit</th>
                                                       <th scope="col">MRP Price</th>
                                                       <th scope="col">Selling Price</th>
+                                                      <th scope="col">In Stock</th>
                                                     </tr>
                                                   </thead>
                                                   <tbody>
@@ -70,6 +74,7 @@
                                                       <th>{{$v->unit->name}}</th>
                                                       <th>${{$v->mrp_price}}</th>
                                                       <th>${{$v->selling_price}}</th>
+                                                      <th class="badge {{$v->in_stock=='1'? 'badge-success':'badge-danger'}}">{{$v->in_stock=='1'?'Yes':'No'}}</th>
                                                     </tr>
                                                     @endforeach
                                                   </tbody>
@@ -85,12 +90,12 @@
 
 
                   </td>
-
+                  <td>{{$c->sku}}</td>
                   <td>{{$c->status=='1'?'Active':'Not Active'}}</td>
-                  <td>{{$c->description}}</td>
+                  
                   <td>{{$c->category->name}}</td>
                   
-                  <td>{{$c->sku}}</td>
+                  
                   <td>{{$c->in_stock=='1'?'Yes':'No'}}</td>
                   <td>
                      @foreach(explode(',',$c->images) as $image)

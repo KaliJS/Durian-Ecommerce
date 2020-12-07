@@ -10,7 +10,7 @@
         </div>
         
     </div>
-    <form class="form-horizontal"  action="{{ route('categories.update',$category) }}" method="POST">      
+    <form class="form-horizontal"  action="{{ route('categories.update',$category) }}" method="POST" enctype="multipart/form-data">      
        @method('PUT')
        @csrf
         <div class="form-group row">
@@ -19,6 +19,13 @@
                 <input class="form-control" type="text" value="{{$category->name}}" name="name" placeholder="Name">
             </div>
         </div>
+
+        <div class="form-group row">
+            <label class="col-sm-12 col-md-2 col-form-label">Images</label>
+            <div class="col-sm-12 col-md-10">
+               <input type="file" name="image" value="{{$category->image}}" class="form-control-file form-control height-auto">
+            </div>
+         </div>
         
         <div class="form-group row">
             <label class="col-sm-12 col-md-2 col-form-label">Description</label>

@@ -68,7 +68,7 @@
 
             @foreach($product->variants as $v)
             <div class='row product_variant'>
-               <div class='form-group col-md-3 col-sm-6'>
+               <div class='form-group col-md-2 col-sm-6'>
                   <label>Unit Name</label>
                   <select class='custom-select ' name='unit_id[]' required>
                      <option selected disabled>Select</option>
@@ -77,7 +77,7 @@
                      @endforeach
                   </select>
                </div>
-               <div class='col-md-3 col-sm-6'>
+               <div class='col-md-2 col-sm-6'>
                   <div class='form-group'><label>Quantity</label><input type='number' name='quantity[]' class='form-control' value="{{$v->quantity}}" required></div>
                </div>
                <div class='col-md-2 col-sm-6'>
@@ -87,9 +87,23 @@
                   <div class='form-group'><label>Selling Price</label><input type='number' name='selling_price[]' class='form-control' value="{{$v->selling_price}}" required></div>
                </div>
                
+               <div class='col-md-2 col-sm-6'>
+                  <div class='form-group'><label>In Stock</label>
+                    
+                          <select class="custom-select2 form-control" name="in_stock[]" style="width: 100%;">
+                              
+                              <option value="1" {{$v->in_stock=='1'?'Selected': ''}}>Yes</option>
+                              <option value="0" {{$v->in_stock=='0'?'Selected': ''}}>No</option>
+                              
+                          </select>
+                      
+                  </div>
+               </div>
+
                <div class='col-md-2 col-sm-12'>
                   <button class="btn btn-danger variant_remove mx-auto"  type="button"><i class="icon-copy dw dw-trash"></i></button>
                </div>
+              
 
 
             </div>
@@ -139,18 +153,6 @@
             </div>
         </div>
 
-        <div class="form-group row">
-            <label class="col-sm-12 col-md-2 col-form-label">In Stock</label>
-            <div class="col-sm-12 col-md-10">
-                <select class="custom-select2 form-control" name="in_stock" style="width: 100%;">
-                    
-                    <option value="1" {{$product->in_stock=='1'?'Selected': ''}}>Yes</option>
-                    <option value="0" {{$product->in_stock=='0'?'Selected': ''}}>No</option>
-                    
-                </select>
-            </div>
-        </div>
-
         <button class="btn btn-success" type="submit">Update</button>
 
     </form>
@@ -185,7 +187,7 @@
                         </div>
                         
                         <div class='col-md-2 col-sm-12'>
-                           <button class="btn btn-danger variant_remove mx-auto" style='margin-top:12%; margin-bottom:10%;' type="button"><i class="icon-copy dw dw-trash"></i></button>
+                           <button class="btn btn-danger variant_remove mx-auto" style='margin-top:33px;' type="button"><i class="icon-copy dw dw-trash"></i></button>
                         </div>
                         
                      </div>`);

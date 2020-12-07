@@ -43,7 +43,7 @@ class BannerController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'type' => 'required|unique:banners',
+            'type' => 'required',
             'image' => 'required'
         ]);
 

@@ -46,7 +46,8 @@ class CategoryController extends Controller
         
         $request->validate([
             'name' => 'required|unique:categories',
-            'description' => 'required'
+            'description' => 'required',
+            'image' => 'required'
         ]);
 
         
@@ -55,6 +56,14 @@ class CategoryController extends Controller
             $input=$request->all();
             $name = $input['name'];
             $input['slug']=Str::slug($name);
+
+            if($file=$request->file('image')){
+
+                $file_name=time().$file->getClientOriginalName();
+                $file->move('uploads/categories',$file_name);
+                $input['image'] = $file_name;
+            }
+
             Category::create($input);
             
             return redirect()->back()
@@ -108,8 +117,23 @@ class CategoryController extends Controller
             $input=$request->all();
             unset($input['_method']);
             unset($input['_token']);
+            unset($input['_wysihtml5_mode']);
             $name = $input['name'];
             $input['slug']=Str::slug($name);
+
+            if($file=$request->file('image')){
+
+                unlink(public_path().'/uploads/categories/'.$category->image);
+                $file_name=time().$file->getClientOriginalName();
+                $file->move('uploads/categories',$file_name);
+           
+                $input['image'] = $file_name;
+
+            }else{
+
+                $input['image'] = $category->image;
+            }
+
             Category::where('id',$category->id)->update($input);
             
             return redirect()->back()
@@ -132,6 +156,8 @@ class CategoryController extends Controller
         
         DB::beginTransaction();
         try{
+
+            unlink(public_path().'/uploads/categories/'.$category->image);          
             $category->delete();
             DB::table('products')->where('category_id',$category->id)->delete();
             DB::commit();

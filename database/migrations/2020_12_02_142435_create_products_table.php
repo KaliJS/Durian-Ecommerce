@@ -23,7 +23,6 @@ class CreateProductsTable extends Migration
             $table->text('images');
             $table->bigInteger('category_id')->unsigned();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
-            $table->boolean('in_stock')->default(1);
             $table->timestamps();
         });
     }

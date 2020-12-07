@@ -153,6 +153,7 @@ class ProductController extends Controller
             $quantity=$request->quantity;
             $mrp_price=$request->mrp_price;
             $selling_price=$request->selling_price;
+            $in_stock=$request->in_stock;
             $input['name']=$request->name;
             $input['description']=$request->description;
             $input['sku'] = $request->sku;
@@ -160,7 +161,6 @@ class ProductController extends Controller
             $input['category_id'] = $request->category_id;
             $input['sku'] = $request->sku;
             $input['status'] = $request->status;
-            $input['in_stock'] = $request->in_stock;
             $input['slug']=Str::slug($input['name']);
             
             $images_name = [];
@@ -190,7 +190,7 @@ class ProductController extends Controller
             for ($i = 0; $i < $rows; $i++) {
                 $data[]=array('product_id'=>$product->id
                         ,'quantity'=>$quantity[$i],'unit_id'=>$unit_id[$i]
-                        ,'mrp_price'=>$mrp_price[$i],'selling_price'=>$selling_price[$i]
+                        ,'mrp_price'=>$mrp_price[$i],'selling_price'=>$selling_price[$i],'in_stock'=>$in_stock[$i]
                     );
             }
 

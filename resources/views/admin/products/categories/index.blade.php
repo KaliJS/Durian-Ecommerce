@@ -18,6 +18,7 @@
                <tr>
                   <th class="table-plus datatable-nosort">Id</th>
                   <th>Name</th>
+                  <th>Image</th>
                   <th>Description</th>
                   <th class="datatable-nosort">Action</th>
                </tr>
@@ -29,6 +30,13 @@
                   <td class="table-plus">{{$c->id}}</td>
                   
                   <td>{{$c->name}} </td>
+
+                  <td>
+                     
+                     <img src="{{ asset('uploads/categories/'.$c->image) }}" class="img-fluid d-block" width="100px;">
+
+                  </td>
+
                   <td>{{$c->description}}</td>
                   <td>
                      <div class="dropdown">
