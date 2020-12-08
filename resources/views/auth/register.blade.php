@@ -1,4 +1,14 @@
-@extends('layouts.app')
+@extends('layouts.index')
+
+@section('css')
+
+<style type="text/css">
+    .mouse-icon{
+        display: none;
+    }
+</style>
+
+@stop
 
 @section('content')
 <div class="container">

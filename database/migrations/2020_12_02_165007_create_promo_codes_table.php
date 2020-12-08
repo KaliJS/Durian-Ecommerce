@@ -19,7 +19,6 @@ class CreatePromoCodesTable extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->integer('minimum_order_amount')->nullable();
-            $table->integer('number_of_users')->nullable();
             $table->enum('discount_type', ['flat', 'discount']);
             $table->integer('discount');
             $table->integer('max_discount');

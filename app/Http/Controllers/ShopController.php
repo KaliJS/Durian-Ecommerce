@@ -28,7 +28,15 @@ class ShopController extends Controller
     public function index()
     {
         try{
-            $products = Product::paginate(20);     
+            $products = Product::select("*")
+            ->addSelect(\DB::raw("
+                (select (CASE WHEN min(selling_price)=max(selling_price) THEN CONCAT('$',CAST(min(selling_price) as INTEGER)) 
+                ELSE CONCAT('$',CAST(min(selling_price) as INTEGER),' - $',CAST(max(selling_price) as INTEGER))
+                END) as price_range from product_variants where product_id=products.id) as price_range
+                "
+            ))
+            ->orderBy('id')->paginate(20); 
+
             $header = Banner::where('type','Header')->first('image');
             return view('shopping.shop',compact('products','header'));
         }catch(\Exception $e){
@@ -41,7 +49,14 @@ class ShopController extends Controller
         try{
            
             $category = Category::where('slug',$data)->first();
-            $products = Product::where('category_id',$category->id)->paginate(20);
+            $products = Product::where('category_id',$category->id)->select("*")
+            ->addSelect(\DB::raw("
+                (select (CASE WHEN min(selling_price)=max(selling_price) THEN CONCAT('$',CAST(min(selling_price) as INTEGER)) 
+                ELSE CONCAT('$',CAST(min(selling_price) as INTEGER),' - $',CAST(max(selling_price) as INTEGER))
+                END) as price_range from product_variants where product_id=products.id) as price_range
+                "
+            ))
+            ->orderBy('id')->paginate(20);
             $header = Banner::where('type','Header')->first('image');
             return view('shopping.shop',compact('products','header','category'));
         }catch(\Exception $e){

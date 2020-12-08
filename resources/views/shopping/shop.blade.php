@@ -52,18 +52,11 @@
     					<div class="text py-3 pb-4 px-3 text-center">
     						<h3><a href="#">{{$product->name}}</a></h3>
     						<div class="d-flex">
-    							<div class="pricing">
-    								@foreach($product->variants as $v)
-	    								@if ($loop->first)
-				    						<p class="price">
-
-				    							<span class="price-sale">${{$v->selling_price}}</span>
-				    							<span class="unit-sale">/{{$v->quantity}}{{$v->unit->short_code}}</span>
-				    							
-				    						</p>
-			    						@endif
-		    						@endforeach
-		    					</div>
+    							<div class="pricing">              
+                    <p class="price">
+                      <span class="price-sale">{{$product->price_range}}</span>              
+                    </p>              
+                  </div>
 	    					</div>
 	    					
     					</div>

@@ -1,514 +1,238 @@
 @extends('layouts.index')
+@section('css')
+<style type="text/css">
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  margin: auto;
+}
+.modal-content {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 40% !important;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 0.3rem;
+    outline: 0;
+    }
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    padding: 10px;
+    border: 1px solid #888;
+    width: 80%;
+    margin-right: 16px;
+    margin-left: auto;
+    margin-top: -80px !important;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  margin-left: 95%;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+a:not([href]):not([tabindex]) {
+    color: white;
+    text-decoration: none;
+}
+a:not([href]):not([tabindex]):hover {
+    color: #82ae46;
+    text-decoration: none;
+}
+
+
+@media(max-width: 400px){
+	.modal-content{
+		width: 90% !important;
+		margin: auto;
+	}
+}
+
+</style>
+
+@stop
+
 
 @section('content')
 
-    <section id="home-section" class="hero">
-		  <div class="home-slider owl-carousel">
-	      <div class="slider-item" style="background-image: url(images/bg_1.jpg);">
-	      	<div class="overlay"></div>
-	        <div class="container">
-	          <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
-
-	            <div class="col-md-12 ftco-animate text-center">
-	              <h1 class="mb-2">We serve Fresh Vegestables &amp; Fruits</h1>
-	              <h2 class="subheading mb-4">We deliver organic vegetables &amp; fruits</h2>
-	              <p><a href="#" class="btn btn-primary">View Details</a></p>
-	            </div>
-
-	          </div>
-	        </div>
-	      </div>
-
-	      <div class="slider-item" style="background-image: url(images/bg_2.jpg);">
-	      	<div class="overlay"></div>
-	        <div class="container">
-	          <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
-
-	            <div class="col-sm-12 ftco-animate text-center">
-	              <h1 class="mb-2">100% Fresh &amp; Organic Foods</h1>
-	              <h2 class="subheading mb-4">We deliver organic vegetables &amp; fruits</h2>
-	              <p><a href="#" class="btn btn-primary">View Details</a></p>
-	            </div>
-
-	          </div>
-	        </div>
-	      </div>
-	    </div>
-    </section>
-
-    <section class="ftco-section">
-			<div class="container">
-				<div class="row no-gutters ftco-services">
-          <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
-            <div class="media block-6 services mb-md-0 mb-4">
-              <div class="icon bg-color-1 active d-flex justify-content-center align-items-center mb-2">
-            		<span class="flaticon-shipped"></span>
-              </div>
-              <div class="media-body">
-                <h3 class="heading">Free Shipping</h3>
-                <span>On order over $100</span>
-              </div>
-            </div>      
-          </div>
-          <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
-            <div class="media block-6 services mb-md-0 mb-4">
-              <div class="icon bg-color-2 d-flex justify-content-center align-items-center mb-2">
-            		<span class="flaticon-diet"></span>
-              </div>
-              <div class="media-body">
-                <h3 class="heading">Always Fresh</h3>
-                <span>Product well package</span>
-              </div>
-            </div>    
-          </div>
-          <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
-            <div class="media block-6 services mb-md-0 mb-4">
-              <div class="icon bg-color-3 d-flex justify-content-center align-items-center mb-2">
-            		<span class="flaticon-award"></span>
-              </div>
-              <div class="media-body">
-                <h3 class="heading">Superior Quality</h3>
-                <span>Quality Products</span>
-              </div>
-            </div>      
-          </div>
-          <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
-            <div class="media block-6 services mb-md-0 mb-4">
-              <div class="icon bg-color-4 d-flex justify-content-center align-items-center mb-2">
-            		<span class="flaticon-customer-service"></span>
-              </div>
-              <div class="media-body">
-                <h3 class="heading">Support</h3>
-                <span>24/7 Support</span>
-              </div>
-            </div>      
-          </div>
-        </div>
-			</div>
-		</section>
-
-		<section class="ftco-section ftco-category ftco-no-pt">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-8">
-						<div class="row">
-							<div class="col-md-6 order-md-last align-items-stretch d-flex">
-								<div class="category-wrap-2 ftco-animate img align-self-stretch d-flex" style="background-image: url(images/category.jpg);">
-									<div class="text text-center">
-										<h2>Vegetables</h2>
-										<p>Protect the health of every home</p>
-										<p><a href="#" class="btn btn-primary">Shop now</a></p>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/category-1.jpg);">
-									<div class="text px-3 py-1">
-										<h2 class="mb-0"><a href="#">Fruits</a></h2>
-									</div>
-								</div>
-								<div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(images/category-2.jpg);">
-									<div class="text px-3 py-1">
-										<h2 class="mb-0"><a href="#">Vegetables</a></h2>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-md-4">
-						<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/category-3.jpg);">
-							<div class="text px-3 py-1">
-								<h2 class="mb-0"><a href="#">Juices</a></h2>
-							</div>		
-						</div>
-						<div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(images/category-4.jpg);">
-							<div class="text px-3 py-1">
-								<h2 class="mb-0"><a href="#">Dried</a></h2>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-
-    <section class="ftco-section">
-    	<div class="container">
-				<div class="row justify-content-center mb-3 pb-3">
-          <div class="col-md-12 heading-section text-center ftco-animate">
-          	<span class="subheading">Featured Products</span>
-            <h2 class="mb-4">Our Products</h2>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
-          </div>
-        </div>   		
-    	</div>
-    	<div class="container">
-    		<div class="row">
-    			<div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-1.jpg" alt="Colorlib Template">
-    						<span class="status">30%</span>
-    						<div class="overlay"></div>
-    					</a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="#">Bell Pepper</a></h3>
-    						<div class="d-flex">
-    							<div class="pricing">
-		    						<p class="price"><span class="mr-2 price-dc">$120.00</span><span class="price-sale">$80.00</span></p>
-		    					</div>
-	    					</div>
-	    					<div class="bottom-area d-flex px-3">
-	    						<div class="m-auto d-flex">
-	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-	    								<span><i class="ion-ios-menu"></i></span>
-	    							</a>
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-	    								<span><i class="ion-ios-cart"></i></span>
-	    							</a>
-	    							<a href="#" class="heart d-flex justify-content-center align-items-center ">
-	    								<span><i class="ion-ios-heart"></i></span>
-	    							</a>
-    							</div>
-    						</div>
-    					</div>
-    				</div>
-    			</div>
-    			<div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-2.jpg" alt="Colorlib Template">
-    						<div class="overlay"></div>
-    					</a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="#">Strawberry</a></h3>
-    						<div class="d-flex">
-    							<div class="pricing">
-		    						<p class="price"><span>$120.00</span></p>
-		    					</div>
-	    					</div>
-    						<div class="bottom-area d-flex px-3">
-	    						<div class="m-auto d-flex">
-	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-	    								<span><i class="ion-ios-menu"></i></span>
-	    							</a>
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-	    								<span><i class="ion-ios-cart"></i></span>
-	    							</a>
-	    							<a href="#" class="heart d-flex justify-content-center align-items-center ">
-	    								<span><i class="ion-ios-heart"></i></span>
-	    							</a>
-    							</div>
-    						</div>
-    					</div>
-    				</div>
-    			</div>
-    			<div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-3.jpg" alt="Colorlib Template">
-	    					<div class="overlay"></div>
-	    				</a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="#">Green Beans</a></h3>
-    						<div class="d-flex">
-    							<div class="pricing">
-		    						<p class="price"><span>$120.00</span></p>
-		    					</div>
-	    					</div>
-    						<div class="bottom-area d-flex px-3">
-	    						<div class="m-auto d-flex">
-	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-	    								<span><i class="ion-ios-menu"></i></span>
-	    							</a>
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-	    								<span><i class="ion-ios-cart"></i></span>
-	    							</a>
-	    							<a href="#" class="heart d-flex justify-content-center align-items-center ">
-	    								<span><i class="ion-ios-heart"></i></span>
-	    							</a>
-    							</div>
-    						</div>
-    					</div>
-    				</div>
-    			</div>
-    			<div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-4.jpg" alt="Colorlib Template">
-    						<div class="overlay"></div>
-    					</a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="#">Purple Cabbage</a></h3>
-    						<div class="d-flex">
-    							<div class="pricing">
-		    						<p class="price"><span>$120.00</span></p>
-		    					</div>
-	    					</div>
-    						<div class="bottom-area d-flex px-3">
-	    						<div class="m-auto d-flex">
-	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-	    								<span><i class="ion-ios-menu"></i></span>
-	    							</a>
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-	    								<span><i class="ion-ios-cart"></i></span>
-	    							</a>
-	    							<a href="#" class="heart d-flex justify-content-center align-items-center ">
-	    								<span><i class="ion-ios-heart"></i></span>
-	    							</a>
-    							</div>
-    						</div>
-    					</div>
-    				</div>
-    			</div>
 
 
-    			<div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-5.jpg" alt="Colorlib Template">
-    						<span class="status">30%</span>
-    						<div class="overlay"></div>
-    					</a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="#">Tomatoe</a></h3>
-    						<div class="d-flex">
-    							<div class="pricing">
-		    						<p class="price"><span class="mr-2 price-dc">$120.00</span><span class="price-sale">$80.00</span></p>
-		    					</div>
-	    					</div>
-	    					<div class="bottom-area d-flex px-3">
-	    						<div class="m-auto d-flex">
-	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-	    								<span><i class="ion-ios-menu"></i></span>
-	    							</a>
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-	    								<span><i class="ion-ios-cart"></i></span>
-	    							</a>
-	    							<a href="#" class="heart d-flex justify-content-center align-items-center ">
-	    								<span><i class="ion-ios-heart"></i></span>
-	    							</a>
-    							</div>
-    						</div>
-    					</div>
-    				</div>
-    			</div>
-    			<div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-6.jpg" alt="Colorlib Template">
-    						<div class="overlay"></div>
-    					</a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="#">Brocolli</a></h3>
-    						<div class="d-flex">
-    							<div class="pricing">
-		    						<p class="price"><span>$120.00</span></p>
-		    					</div>
-	    					</div>
-    						<div class="bottom-area d-flex px-3">
-	    						<div class="m-auto d-flex">
-	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-	    								<span><i class="ion-ios-menu"></i></span>
-	    							</a>
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-	    								<span><i class="ion-ios-cart"></i></span>
-	    							</a>
-	    							<a href="#" class="heart d-flex justify-content-center align-items-center ">
-	    								<span><i class="ion-ios-heart"></i></span>
-	    							</a>
-    							</div>
-    						</div>
-    					</div>
-    				</div>
-    			</div>
-    			<div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-7.jpg" alt="Colorlib Template">
-	    					<div class="overlay"></div>
-	    				</a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="#">Carrots</a></h3>
-    						<div class="d-flex">
-    							<div class="pricing">
-		    						<p class="price"><span>$120.00</span></p>
-		    					</div>
-	    					</div>
-    						<div class="bottom-area d-flex px-3">
-	    						<div class="m-auto d-flex">
-	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-	    								<span><i class="ion-ios-menu"></i></span>
-	    							</a>
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-	    								<span><i class="ion-ios-cart"></i></span>
-	    							</a>
-	    							<a href="#" class="heart d-flex justify-content-center align-items-center ">
-	    								<span><i class="ion-ios-heart"></i></span>
-	    							</a>
-    							</div>
-    						</div>
-    					</div>
-    				</div>
-    			</div>
-    			<div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-8.jpg" alt="Colorlib Template">
-    						<div class="overlay"></div>
-    					</a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="#">Fruit Juice</a></h3>
-    						<div class="d-flex">
-    							<div class="pricing">
-		    						<p class="price"><span>$120.00</span></p>
-		    					</div>
-	    					</div>
-    						<div class="bottom-area d-flex px-3">
-	    						<div class="m-auto d-flex">
-	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-	    								<span><i class="ion-ios-menu"></i></span>
-	    							</a>
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-	    								<span><i class="ion-ios-cart"></i></span>
-	    							</a>
-	    							<a href="#" class="heart d-flex justify-content-center align-items-center ">
-	    								<span><i class="ion-ios-heart"></i></span>
-	    							</a>
-    							</div>
-    						</div>
-    					</div>
-    				</div>
-    			</div>
-    		</div>
-    	</div>
-    </section>
-		
-		<section class="ftco-section img" style="background-image: url(images/bg_3.jpg);">
-    	<div class="container">
-				<div class="row justify-content-end">
-          <div class="col-md-6 heading-section ftco-animate deal-of-the-day ftco-animate">
-          	<span class="subheading">Best Price For You</span>
-            <h2 class="mb-4">Deal of the day</h2>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
-            <h3><a href="#">Spinach</a></h3>
-            <span class="price">$10 <a href="#">now $5 only</a></span>
-            <div id="timer" class="d-flex mt-5">
-						  <div class="time" id="days"></div>
-						  <div class="time pl-3" id="hours"></div>
-						  <div class="time pl-3" id="minutes"></div>
-						  <div class="time pl-3" id="seconds"></div>
-						</div>
-          </div>
-        </div>   		
-    	</div>
-    </section>
+<div id="myModal" class="modal" style="z-index: 999;">
 
-    <section class="ftco-section testimony-section">
-      <div class="container">
-        <div class="row justify-content-center mb-5 pb-3">
-          <div class="col-md-7 heading-section ftco-animate text-center">
-          	<span class="subheading">Testimony</span>
-            <h2 class="mb-4">Our satisfied customer says</h2>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in</p>
-          </div>
-        </div>
-        <div class="row ftco-animate">
-          <div class="col-md-12">
-            <div class="carousel-testimony owl-carousel">
-              <div class="item">
-                <div class="testimony-wrap p-4 pb-5">
-                  <div class="user-img mb-5" style="background-image: url(images/person_1.jpg)">
-                    <span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                  </div>
-                  <div class="text text-center">
-                    <p class="mb-5 pl-4 line">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <p class="name">Garreth Smith</p>
-                    <span class="position">Marketing Manager</span>
-                  </div>
+  <!-- Modal content -->
+  <div class="modal-content">
+    
+    <div class="row">
+        <div class="col-12">
+            <div class="modal-bg addtocart">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                
+                    
+                    <div class="align-self-center text-center">
+                        <a href="#" class="">
+                            <h6 class="mb-3" style="margin-top: -5px;padding: 5px;">
+                                <i class="fa fa-check-circle mr-2"></i>
+                                <span>Item successfully removed from your Cart</span>
+                            </h6>
+                        </a>
+                        
+                    
                 </div>
-              </div>
-              <div class="item">
-                <div class="testimony-wrap p-4 pb-5">
-                  <div class="user-img mb-5" style="background-image: url(images/person_2.jpg)">
-                    <span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                  </div>
-                  <div class="text text-center">
-                    <p class="mb-5 pl-4 line">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <p class="name">Garreth Smith</p>
-                    <span class="position">Interface Designer</span>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="testimony-wrap p-4 pb-5">
-                  <div class="user-img mb-5" style="background-image: url(images/person_3.jpg)">
-                    <span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                  </div>
-                  <div class="text text-center">
-                    <p class="mb-5 pl-4 line">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <p class="name">Garreth Smith</p>
-                    <span class="position">UI Designer</span>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="testimony-wrap p-4 pb-5">
-                  <div class="user-img mb-5" style="background-image: url(images/person_1.jpg)">
-                    <span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                  </div>
-                  <div class="text text-center">
-                    <p class="mb-5 pl-4 line">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <p class="name">Garreth Smith</p>
-                    <span class="position">Web Developer</span>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="testimony-wrap p-4 pb-5">
-                  <div class="user-img mb-5" style="background-image: url(images/person_1.jpg)">
-                    <span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                  </div>
-                  <div class="text text-center">
-                    <p class="mb-5 pl-4 line">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <p class="name">Garreth Smith</p>
-                    <span class="position">System Analyst</span>
-                  </div>
-                </div>
-              </div>
             </div>
+        </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="hero-wrap hero-bread" style="background-image: url({{url('uploads/banners/'.$header->image)}});">
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+          <div class="col-md-9 ftco-animate text-center">
+          	<p class="breadcrumbs"><span class="mr-2"><a href="{{url('/')}}">Home</a></span> <span>Cart</span></p>
+            <h1 class="mb-0 bread">My Cart</h1>
           </div>
         </div>
       </div>
-    </section>
+    </div>
 
-    <hr>
+    <section class="ftco-section ftco-cart">
+		<div class="container">
+			<div class="row">
+			<div class="col-md-12 ftco-animate">
+				<div class="cart-list">
+    				<table class="table">
+					    <thead class="thead-primary">
+					      <tr class="text-center">
+					        <th>Remove</th>
+					        <th>Product Image</th>
+					        <th>Product name & Quantity</th>
+					        <th>Price</th>
+					        <th>Quantity</th>
+					        <th>Total</th>
+					      </tr>
+					    </thead>
+					    <tbody>
 
-		<section class="ftco-section ftco-partner">
-    	<div class="container">
-    		<div class="row">
-    			<div class="col-sm ftco-animate">
-    				<a href="#" class="partner"><img src="images/partner-1.png" class="img-fluid" alt="Colorlib Template"></a>
-    			</div>
-    			<div class="col-sm ftco-animate">
-    				<a href="#" class="partner"><img src="images/partner-2.png" class="img-fluid" alt="Colorlib Template"></a>
-    			</div>
-    			<div class="col-sm ftco-animate">
-    				<a href="#" class="partner"><img src="images/partner-3.png" class="img-fluid" alt="Colorlib Template"></a>
-    			</div>
-    			<div class="col-sm ftco-animate">
-    				<a href="#" class="partner"><img src="images/partner-4.png" class="img-fluid" alt="Colorlib Template"></a>
-    			</div>
-    			<div class="col-sm ftco-animate">
-    				<a href="#" class="partner"><img src="images/partner-5.png" class="img-fluid" alt="Colorlib Template"></a>
-    			</div>
-    		</div>
-    	</div>
-    </section>
+					    	
 
-		<section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
+					    	@foreach($cart as $key=>$value)
+							      <tr class="text-center">
+							        <td class="product-remove" id="{{$key}}"><a><span class="ion-ios-close"></span></a></td>
+							        
+							        <td class="image-prod"><div class="img" style="background-image: url({{url('uploads/products/'.$value['image'])}});"></div></td>
+							        
+							        <td class="product-name">
+							        	<h3>{{$value['product_name']}}</h3>
+							        </td>
+							        
+							        <td class="price">${{$value['variant_price']}}</td>
+							        
+							        <td class="quantity">
+							        	<div class="input-group mb-3">
+							             	<span class="input-group-btn mr-2">
+							                	<button type="button" id="{{$key}}" class="quantity-left-minus btn"  data-type="minus" data-field="">
+							                   <i class="ion-ios-remove"></i>
+							                	</button>
+							            	</span>
+							             	<input type="text" id="quantity-{{$key}}" name="quantity" class="form-control input-number" value="{{$value['quantity']}}" min="1" max="100" readonly>
+							             	<span class="input-group-btn ml-2">
+							                	<button type="button" class="quantity-right-plus btn" data-type="plus" id="{{$key}}" data-field="">
+							                     <i class="ion-ios-add"></i>
+							                 	</button>
+							             	</span>
+							          	</div>
+						          </td>
+							        
+							        <td class="total-{{$key}}">${{$value['subtotal']}}</td>
+							      </tr>
+							@endforeach
+
+							@if(count($cart) < 1)
+
+							<tr>
+								<td>{{$empty}}</td>
+							</tr>
+							    
+							@endif
+					      
+					    </tbody>
+					  </table>
+				  </div>
+			</div>
+		</div>
+		<div class="row">
+
+			@if(!count($cart) < 1)
+			<div class="col-lg-4 mt-5 cart-wrap ftco-animate">
+				<div class="cart-total mb-3">
+					<h3>Coupon Code</h3>
+					<p>Enter your coupon code if you have one</p>
+						<form action="#" class="info">
+              <div class="form-group">
+              	<label for="">Coupon code</label>
+                <input type="text" id="coupon_code" class="form-control text-left px-3" placeholder="">
+                <span class="text-danger expired_coupon"></span>
+              </div>
+            </form>
+				</div>
+
+				<p><a type="botton" class="btn btn-primary py-3 px-4 apply_coupon_botton">Apply Coupon</a></p>
+			</div>
+			
+			
+			<div class="col-lg-4 mt-5 cart-wrap ftco-animate">
+				<div class="cart-total mb-3">
+					<h3>Cart Totals</h3>
+					
+					<hr>
+					<p class="d-flex total-price">
+						<span>Total</span>
+						<span id="final_price">${{$total_price}}</span>
+					</p>
+				</div>
+				<p><a href="{{url('/checkout')}}" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
+			</div>
+
+			@endif
+		</div>
+		</div>
+	</section>
+
+	<section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
       <div class="container py-4">
         <div class="row d-flex justify-content-center py-5">
           <div class="col-md-6">
@@ -526,7 +250,162 @@
         </div>
       </div>
     </section>
+  
+
+@stop
+
+
+@section('js')
+
+<script type="text/javascript">
+
+
+  let checkout_total_price = 0;
+
+	var modal = document.getElementById("myModal");
+	var span = document.getElementsByClassName("close")[0];
+    span.onclick = function() {
+	    modal.style.display = "none";
+	} 
+
+	window.onclick = function(event) {
+	  if (event.target == modal) {
+	    modal.style.display = "none";
+	  }
+	}
+
+	$(document).on("click",".quantity-right-plus",function(){
+      
+      const selected_variant_id = this.id;
+      let quantity = $('#quantity-'+selected_variant_id).val();
+
+        quantity++;
+
+        $('#quantity-'+selected_variant_id).val(quantity);
+        const todo = 'update';
+
+      $.ajax({
+            method:'POST',
+            url:`/cart/updateCart`,
+            data:{selected_variant_id,todo,quantity,"_token":"{{csrf_token()}}"},
+            encode  : true
+        }).then(response=>{
+          
+            if(response){
+	              $('.total-'+selected_variant_id).text(response[2]);
+                $('#final_price').text(response[1]);
+            }else{
+                alert('! Something went wrong, Please Try again later..');
+            }  
+
+        }).fail(error=>{
+            console.log('error',error);
+        });
+      
+    });
+
+    $(document).on("click",".quantity-left-minus",function(){
+      const selected_variant_id = this.id;
+      let quantity = $('#quantity-'+selected_variant_id).val();
+
+      if(quantity<=1){
+        return;
+      }else{
+        quantity--;
+      }
+      $('#quantity-'+selected_variant_id).val(quantity);
+      const todo = 'update';
+      $.ajax({
+            method:'POST',
+            url:`/cart/updateCart`,
+            data:{selected_variant_id,todo,quantity,"_token":"{{csrf_token()}}"},
+            encode  : true
+        }).then(response=>{
+          
+            if(response){
+                $('.total-'+selected_variant_id).text(response[2]);
+                $('#final_price').text(response[1]);
+              }else{
+                alert('! Something went wrong, Please Try again later..');
+              }           
+            
+        }).fail(error=>{
+            console.log('error',error);
+        });
+    });
+
+	$(document).on("click",".product-remove",function(){
+
+	  const el = this;
+      const selected_variant_id = this.id;
+      
+      const todo = 'delete';
+      $.ajax({
+            method:'POST',
+            url:`/cart/updateCart`,
+            data:{selected_variant_id,todo,"_token":"{{csrf_token()}}"},
+            encode  : true
+        }).then(response=>{
+          
+            if(response){
+              
+	             $(el).parent().fadeOut(function(){
+	                $(this).remove();
+	                modal.style.display = "block";
+	             }); 
+	             $('#cart_count').text(response[0]);
+               $('#final_price').text(response[1]);
+
+              }else{
+                alert('! Something went wrong, Please Try again later..');
+              }          
+            
+        }).fail(error=>{
+            console.log('error',error);
+        });
+      
+    });
+
+  $(document).on("click",".apply_coupon_botton",function(){
+
+      const coupon_code = $('#coupon_code').val();
+      
+
+      var withoutSpace = coupon_code.replace(/ /g, '').length; 
+      
+      if(withoutSpace>0){
+      $.ajax({
+            method:'POST',
+            url:`/cart/applyCoupon`,
+            data:{coupon_code,"_token":"{{csrf_token()}}"},
+            encode  : true
+        }).then(response=>{
+          
+            if(response == 'blank'){
+              $('.expired_coupon').text('! Invalid coupon');
+            }else if(response == 'finished' || response == 'expire'){
+              $('.expired_coupon').text('! Currently not available');
+            }else if(response == 'less_amount'){
+              $('.expired_coupon').text('! This Coupon can not be applied on your cart');
+            }else{
+              $('.expired_coupon').text('Coupon Applied successfully.');
+              $('.expired_coupon').removeClass('text-danger');
+              $('.expired_coupon').addClass('text-success');
+            }          
+            
+        }).fail(error=>{
+            console.log('error',error);
+        });
+
+      }else{
+        $('.expired_coupon').text('! Please Enter Coupon Code, If have one.');
+      }
+      
+    });
+
 
    
+    
+</script>
 
 @stop

@@ -17,4 +17,8 @@ class ProductVariants extends Model
     	return $this->hasOne('App\Models\Unit','id','unit_id');
     }
 
+    public function product(){
+    	return $this->belongsTo('App\Models\Product','product_id','id');
+    }
+
 }

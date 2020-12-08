@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\SingleProductController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\DashboardController;
@@ -42,7 +44,7 @@ use App\Http\Controllers\BannerController;
 Auth::routes();
 
 
-Route::resource('/login', LoginController::class);
+//Route::resource('/login', LoginController::class);
 
 Route::resource('/register', RegisterController::class);
 
@@ -52,7 +54,14 @@ Route::get('/category/{data}', [ShopController::class, 'getCategoryProducts']);
 Route::get('/shop', [ShopController::class, 'index']);
 
 Route::get('/product/{data}', [SingleProductController::class, 'getProductDetails']);
-Route::post('/product/addToCart', [SingleProductController::class, 'addToCart']);
+
+Route::post('/product/updateCart', [CartController::class, 'updateCart']);
+
+Route::post('/cart/updateCart', [CartController::class, 'updateCart']);
+Route::post('/cart/applyCoupon', [CartController::class, 'applyCoupon']);
+Route::get('/cart', [CartController::class, 'index']);
+
+Route::resource('/checkout', CheckoutController::class);
 
 
 

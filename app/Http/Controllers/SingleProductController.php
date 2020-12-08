@@ -31,57 +31,6 @@ class SingleProductController extends Controller
         
     }
 
-    public function addToCart(Request $request)
-    {
-
-        try{
-            // $request->session()->forget('cart');
-            // return $request->session()->all();
-            $variant_id = $request->selected_variant_id;
-
-            if($request->session()->has('cart')){
-                $cart = $request->session()->get('cart');
-            }
-                 
-            if($request->todo == 'add'){
-                $quantity = $request->selected_quantity;
-                $variant_price = $request->selected_selling_price;
-
-                if(!$request->session()->has('cart')){
-                    $request->session()->put('cart',[]);
-                }
-
-                $cart = $request->session()->get('cart');
-                if(isset($cart[$variant_id])){
-                    $cart[$variant_id]['quantity'] += $quantity;
-                }else{
-                    $cart[$variant_id]['quantity'] = $quantity;
-                    $cart[$variant_id]['variant_price'] = $variant_price;
-                }
-                $cart[$variant_id]['subtotal'] = $cart[$variant_id]['quantity']*$variant_price;
-                $request->session()->put('cart',$cart);
-
-            }else if($request->todo == 'update'){
-                $get_cart = $request->session()->get('cart');
-                $quantity = $request->quantity;
-                $get_cart[$variant_id]['quantity'] = $quantity;
-                $request->session()->put('cart',$get_cart);
-
-            }else if($request->todo == 'delete'){
-                $get_cart = $request->session()->get('cart');
-                unset($get_cart[$variant_id]);
-                $request->session()->put('cart',$get_cart);
-               
-
-            }
-            return $request->session()->get('cart');
-        }catch(\Exception $e){
-            return $e->getMessage();
-        }
-        
-
-    }
-
     
 
     public function getProductDetails($data)
@@ -108,7 +57,14 @@ class SingleProductController extends Controller
             $arr = explode(",", $product->images, 2);
             $first_image = $arr[0];
             
-            $relatedProducts = Product::where('category_id',$product->category_id)->where('slug','!=',$data)->offset(0)->limit(8)->get();
+            $relatedProducts = Product::where('category_id',$product->category_id)->where('slug','!=',$data)->select("*")
+            ->addSelect(\DB::raw("
+                (select (CASE WHEN min(selling_price)=max(selling_price) THEN CONCAT('$',CAST(min(selling_price) as INTEGER)) 
+                ELSE CONCAT('$',CAST(min(selling_price) as INTEGER),' - $',CAST(max(selling_price) as INTEGER))
+                END) as price_range from product_variants where product_id=products.id) as price_range
+                "
+            ))
+            ->orderBy('id')->offset(0)->limit(8)->get();
             $header = Banner::where('type','Header')->first('image');
             return view('shopping.single-product',compact('relatedProducts','header','product','first_image','price'));
         }catch(\Exception $e){

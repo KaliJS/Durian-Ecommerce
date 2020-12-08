@@ -1,4 +1,5 @@
 @extends('layouts.index')
+@section('css')
 <style type="text/css">
 .modal {
   display: none; /* Hidden by default */
@@ -7,7 +8,7 @@
   padding-top: 100px; /* Location of the box */
   left: 0;
   top: 0;
-  width: 70%; /* Full width */
+  width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
@@ -58,6 +59,8 @@
 }
 </style>
 
+@stop
+
 
 @section('content')
 
@@ -66,7 +69,7 @@
 
 
 <!-- The Modal -->
-<div id="myModal" class="modal">
+<div id="myModal" class="modal" style="z-index: 999;">
 
   <!-- Modal content -->
   <div class="modal-content">
@@ -79,20 +82,25 @@
                 </button>
                 <div class="row">
                     <div class="col-md-3">
-                        <img class="img-fluid pro-img product_image" src="{{asset('/uploads/products/1607150849product-1.jpg')}}" alt="">
+                    
+                      @foreach(explode(',',$product->images) as $image)
+                       @if ($loop->first)
+                        <img src="{{ asset('uploads/products/'.$image) }}" class="img-fluid pro-img product_image" alt="">
+                       @endif
+                      @endforeach
                     </div>
                     <div class="align-self-center text-center col-md-9">
                         <a href="#" class="">
                             <h6 class="mb-3">
-                                <i class="fa fa-check"></i>Item
-                                <span class="product_name">Potato (Agra White)</span>
+                                <i class="fa fa-check-circle mr-2"></i>Item
+                                <span class="product_name">{{$product->name}}</span>
                                 <span> successfully added to your Cart</span>
                             </h6>
                         </a>
                         <div class="buttons">
                             <a href="{{url('/shop')}}" class="btn btn-primary py-2 px-4 mb-1">Continue Shopping</a>
-                            <a href="checkout.html" style="margin-right: 5%;margin-left: 5%;" class="btn btn-primary py-2 px-4 mb-1">Veiw Cart</a>
-                            <a href="checkout.html" class="btn btn-primary py-2 px-4 mb-1">Checkout</a>
+                            <a href="{{url('/cart')}}" style="margin-right: 5%;margin-left: 5%;" class="btn btn-primary py-2 px-4 mb-1">Veiw Cart</a>
+                            <a href="{{url('/checkout')}}" class="btn btn-primary py-2 px-4 mb-1">Checkout</a>
                         </div>
 
                         
@@ -171,7 +179,7 @@
                 <p class="d-flex">
                   <span>Price</span>
                   <strike class="mr-2"><span id="detail-mrp-price"></span></strike>
-                  <span id="detail-selling-price"></span>
+                  <span id="detail-selling-price" class="text-dark" style="font-weight: bold;"></span>
                 </p>
                 
                 <p class="d-flex mb-0">
@@ -201,7 +209,7 @@
 	          	<div class="w-100"></div>
 	          	
           	</div>
-          	<p><a id="{{$product->id}}" class="btn btn-black py-3 px-5 add_to_cart disabled">Add to Cart</a></p>
+          	<p><a id="{{$product->id}}" class="btn btn-black text-white py-3 px-5 add_to_cart disabled">Add to Cart</a></p>
     			</div>
     		</div>
     	</div>
@@ -240,18 +248,11 @@
     					<div class="text py-3 pb-4 px-3 text-center">
     						<h3><a href="#">{{$product->name}}</a></h3>
     						<div class="d-flex">
-    							<div class="pricing">
-    								@foreach($product->variants as $v)
-	    								@if ($loop->first)
-				    						<p class="price">
-
-				    							<span class="price-sale">${{$v->selling_price}}</span>
-				    							<span class="unit-sale">/{{$v->quantity}}{{$v->unit->short_code}}</span>
-				    							
-				    						</p>
-			    						@endif
-		    						@endforeach
-		    					</div>
+    							<div class="pricing">              
+                    <p class="price">
+                      <span class="price-sale">{{$product->price_range}}</span>              
+                    </p>              
+                  </div>
 	    					</div>
 	    					
     					</div>
@@ -370,17 +371,20 @@
               const todo = 'add';
               $.ajax({
                     method:'POST',
-                    url:`addToCart`,
+                    url:`updateCart`,
                     data:{selected_product_id,selected_variant_id,selected_quantity,todo,selected_selling_price,"_token":"{{csrf_token()}}"},
                     encode  : true
                 }).then(response=>{
-                    if(response){
-                      alert(response);
-                         // $(el).parent().parent().css('background','tomato');
-                         // $(el).parent().parent().fadeOut(function(){
-                         //    $(this).remove();
-                         // });            
-                    }
+                  
+                   
+                      if(response){
+                        modal.style.display = "block";
+                        $('#cart_count').text(response);
+
+                      }else{
+                        alert('! Something went wrong, Please Try again later..');
+                      }          
+                    
                 }).fail(error=>{
                     console.log('error',error);
                 });

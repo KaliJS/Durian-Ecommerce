@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Models\Role;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use App\Models\Product;
+use App\Models\ProductVariants;
+use App\Models\Category;
+use App\Models\Banner;
+use App\Models\Promo;
+use Redirect;
+use Auth;
 
-class RegisterController extends Controller
+class CheckoutController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +20,27 @@ class RegisterController extends Controller
      */
     public function index()
     {
-        return view('shopping.register');
+        try{
+            if(Auth::user()){
+                $cart = []; 
+                if(session()->has('cart')){
+                    $cart = session()->get('cart');
+                }
+                //session()->forget('cart');
+                $total_price = 0;
+                foreach($cart as $key=>$value){
+                    $total_price += $value['subtotal'];
+                }
+
+                $header = Banner::where('type','Header')->first('image');
+                return view('shopping.checkout',compact('header','cart','total_price'));
+            }else{
+                return redirect('/login');
+            }
+            
+        }catch(\Exception $e){
+            return Redirect::back()->with('error',$e->getMessage());
+        }
     }
 
     /**
@@ -37,36 +61,7 @@ class RegisterController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'email' => 'required|unique:users',
-            'firstname' => 'required',
-            'lastname' => 'required',
-            'city' => 'required',
-            'address1' => 'required',
-            'address2' => 'required',
-            'pincode' => 'required',
-            'password' => 'required',
-            'phone' => 'required'
-        ]);
-       
-        try{
-
-            $input=$request->all();
-            $input['password'] = Hash::make($request->password);
-            $input['role_id'] = '4';
-            $input['name'] = $request->firstname.' '.$request->lastname;
-            $input['area'] = $request->address1.' '.$request->address2;
-            $input['address'] = $input['area'].' '.$request->city.' '.$request->pincode;
-            
-            User::create($input);
-            
-            return redirect()->route('login')
-                ->with('success', 'Registered successfully, Please Login.');
-
-        }catch(\Exception $e){
-            DB::rollback();
-            return Redirect::back()->with('error',$e->getMessage());
-        }
+        //
     }
 
     /**

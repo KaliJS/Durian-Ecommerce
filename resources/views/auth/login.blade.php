@@ -1,16 +1,25 @@
-@extends('layouts.app')
+@extends('layouts.index')
+
+@section('css')
+
+<style type="text/css">
+    .mouse-icon{
+        display: none;
+    }
+</style>
+
+@stop
 
 @section('content')
-<div class="container">
+<div class="container py-4">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header"><h5 class="mb-0">{{ __('Login') }}</h5></div>
-
+                
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
-
+                        <h3 class="mb-4 billing-heading">Login</h3>
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
@@ -59,6 +68,11 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Login') }}
                                 </button>
+
+                                <div class="pt-3">
+                                    <a class="" href="{{ url('/register') }}">Do not account?</a>
+                                </div>
+
                             <!--
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
