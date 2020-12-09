@@ -197,22 +197,6 @@ a:not([href]):not([tabindex]):hover {
 		<div class="row">
 
 			@if(!count($cart) < 1)
-			<div class="col-lg-4 mt-5 cart-wrap ftco-animate">
-				<div class="cart-total mb-3">
-					<h3>Coupon Code</h3>
-					<p>Enter your coupon code if you have one</p>
-						<form action="#" class="info">
-              <div class="form-group">
-              	<label for="">Coupon code</label>
-                <input type="text" id="coupon_code" class="form-control text-left px-3" placeholder="">
-                <span class="text-danger expired_coupon"></span>
-              </div>
-            </form>
-				</div>
-
-				<p><a type="botton" class="btn btn-primary py-3 px-4 apply_coupon_botton">Apply Coupon</a></p>
-			</div>
-			
 			
 			<div class="col-lg-4 mt-5 cart-wrap ftco-animate">
 				<div class="cart-total mb-3">
@@ -366,42 +350,7 @@ a:not([href]):not([tabindex]):hover {
       
     });
 
-  $(document).on("click",".apply_coupon_botton",function(){
-
-      const coupon_code = $('#coupon_code').val();
-      
-
-      var withoutSpace = coupon_code.replace(/ /g, '').length; 
-      
-      if(withoutSpace>0){
-      $.ajax({
-            method:'POST',
-            url:`/cart/applyCoupon`,
-            data:{coupon_code,"_token":"{{csrf_token()}}"},
-            encode  : true
-        }).then(response=>{
-          
-            if(response == 'blank'){
-              $('.expired_coupon').text('! Invalid coupon');
-            }else if(response == 'finished' || response == 'expire'){
-              $('.expired_coupon').text('! Currently not available');
-            }else if(response == 'less_amount'){
-              $('.expired_coupon').text('! This Coupon can not be applied on your cart');
-            }else{
-              $('.expired_coupon').text('Coupon Applied successfully.');
-              $('.expired_coupon').removeClass('text-danger');
-              $('.expired_coupon').addClass('text-success');
-            }          
-            
-        }).fail(error=>{
-            console.log('error',error);
-        });
-
-      }else{
-        $('.expired_coupon').text('! Please Enter Coupon Code, If have one.');
-      }
-      
-    });
+  
 
 
    

@@ -102,7 +102,7 @@ a:not([href]):not([tabindex]):hover {
                     <a href="#" class="">
                         <h6 class="mb-3" style="margin-top: -5px;padding: 5px;">
                             <i class="fa fa-check-circle mr-2"></i>
-                            <span>Order completed Successfully.</span>
+                            <span>Coupon Applied Successfully.</span>
                         </h6>
                     </a>
                     
@@ -215,7 +215,7 @@ a:not([href]):not([tabindex]):hover {
 					</div>
 	          	</div>
 
-	          	<div class="col-md-12 cart-wrap mb-4 ftco-animate">
+	          	<div class="col-md-12 cart-wrap mb-4 ftco-animate" id="coupon_form">
 					<div class="cart-total mb-3">
 						<h3>Coupon Code</h3>
 						<p>Enter your coupon code if you have one</p>
@@ -338,12 +338,15 @@ a:not([href]):not([tabindex]):hover {
             }else if(response == 'less_amount'){
               $('.expired_coupon').text('! This Coupon can not be applied on your cart');
             }else{
-              $('.expired_coupon').text('Coupon Applied successfully.');
-              $('.price_discount').text('$'+response[0]);
-              $('.final_price').text('$'+response[1]);
-              $('.expired_coupon').removeClass('text-danger');
-              $('.expired_coupon').addClass('text-success');
 
+            	$('#coupon_form').fadeOut(function(){
+	                $(this).remove();
+	                modal.style.display = "block";
+	             });
+
+	            $('.price_discount').text('$'+response[0]);
+	            $('.final_price').text('$'+response[1]);
+            
             }          
             
         }).fail(error=>{

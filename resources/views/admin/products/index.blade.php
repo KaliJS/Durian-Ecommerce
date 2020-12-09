@@ -20,12 +20,8 @@
                   <th>Name</th>
                   <th>Variants</th>
                   <th>SKU</th>
-                  <th>Status</th>
-                  
+                  <th>Status</th>            
                   <th>Category</th>
-                  
-                  
-                  <th>In Stock</th>
                   <th>Images</th>
                   <th class="datatable-nosort">Action</th>
                </tr>
@@ -94,9 +90,7 @@
                   <td>{{$c->status=='1'?'Active':'Not Active'}}</td>
                   
                   <td>{{$c->category->name}}</td>
-                  
-                  
-                  <td>{{$c->in_stock=='1'?'Yes':'No'}}</td>
+
                   <td>
                      @foreach(explode(',',$c->images) as $image)
                         @if ($loop->first)

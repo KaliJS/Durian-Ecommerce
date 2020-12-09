@@ -175,8 +175,7 @@ class CartController extends Controller
                 $data[]=array('user_id'=>Auth::user()->id
                         ,'promo_code_id'=>$promo->id,'created_at' => date("Y-m-d H:i:s"),'updated_at' =>date("Y-m-d H:i:s")
                     );
-                //$already_applied = DB::table('users_coupon')->where('user', Auth::user()->id)->where('promo_code_id',$promo->id)->first();
-
+                
                 $insert_services=DB::table('users_coupon')->insert($data);
 
                 array_push( $final, $discount );
