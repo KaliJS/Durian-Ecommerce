@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\SingleProductController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\DashboardController;
@@ -61,8 +62,11 @@ Route::post('/cart/updateCart', [CartController::class, 'updateCart']);
 Route::post('/cart/applyCoupon', [CartController::class, 'applyCoupon']);
 Route::get('/cart', [CartController::class, 'index']);
 
+
+Route::post('/checkout/placeOrder', [CheckoutController::class, 'placeOrder']);
 Route::resource('/checkout', CheckoutController::class);
 
+Route::resource('/order', OrdersController::class);
 
 
 Route::group(['middleware' => 'auth'], function () {

@@ -8787,7 +8787,7 @@ h1, h2, h3, h4, h5,
     -moz-box-shadow: 0px 7px 15px -5px rgba(0, 0, 0, 0.07);
     box-shadow: 0px 7px 15px -5px rgba(0, 0, 0, 0.07); }
     .product:hover .pricing {
-      opacity: 0; }
+      opacity: 1; }
     .product:hover .text .bottom-area {
       opacity: 1; }
 

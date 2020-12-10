@@ -156,7 +156,7 @@ a:not([href]):not([tabindex]):hover {
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="streetaddress">Street Address</label>
-                    <input type="text" class="form-control" value="{{Auth::user()->area}}" name="address1" placeholder="House number and street name" required>
+                    <input type="text" id="street" class="form-control" value="{{Auth::user()->area}}" name="address1" placeholder="House number and street name" required>
                   </div>
                 </div>
 
@@ -164,13 +164,13 @@ a:not([href]):not([tabindex]):hover {
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="towncity">Town / City</label>
-                    <input type="text" name="city" value="{{Auth::user()->city}}" class="form-control" placeholder="Town / City" required>
+                    <input type="text" id="city" name="city" value="{{Auth::user()->city}}" class="form-control" placeholder="Town / City" required>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="postcodezip">Postcode / ZIP *</label>
-                    <input type="number" name="pincode" value="{{Auth::user()->pincode}}" class="form-control" placeholder="Postcode" required>
+                    <input type="number" id="pincode" name="pincode" value="{{Auth::user()->pincode}}" class="form-control" placeholder="Postcode" required>
                   </div>
                 </div>
                 <div class="w-100"></div>
@@ -254,6 +254,7 @@ a:not([href]):not([tabindex]):hover {
 								   <label><input type="radio" name="optradio" class="mr-2"> Paypal</label>
 								</div>
 							</div>
+              <div id="paypal-button-container"></div>
 						</div>
 						<div class="form-group">
 							<div class="col-md-12">
@@ -297,8 +298,54 @@ a:not([href]):not([tabindex]):hover {
 
 
 @section('js')
-
+<script src="https://www.paypal.com/sdk/js?client-id=AUWFbGLu9ZihDL_sc8qUuBLtoL3DBtfyEkgUnvBlmpUDGgX2nlFWARi2OPGe0Swjpjw43WZw4bM3uWp5"></script>
 <script type="text/javascript">
+
+
+
+var products = {!! json_encode($cart) !!};
+
+var amount = {!! json_encode($total_price) !!};
+var price_after_discount = amount;
+
+console.log(products);
+
+  paypal.Buttons({
+        createOrder: function(data, actions) {
+          return actions.order.create({
+            purchase_units: [{
+              amount: {
+                value: amount
+              }
+            }]
+          });
+        },
+        onApprove: function(data, actions) {
+          return actions.order.capture().then(function(details) {
+              console.log(details);
+
+              var street = $('#street').val();
+              var city = $('#city').val();
+              var pincode = $('#pincode').val();
+              var address = street + ' ' + city;
+
+                $.ajax({
+                    method:'POST',
+                    url:`/checkout/placeOrder`,
+                    data:{details,products,amount,price_after_discount,pincode,address,"_token":"{{csrf_token()}}"},
+                    encode  : true
+                }).then(response=>{
+                  
+                     console.log(response);     
+                    
+                }).fail(error=>{
+                    console.log('error',error);
+                });
+            // alert('Transaction completed by ' + details.payer.name.given_name);
+          });
+        }
+      }).render('#paypal-button-container');
+
 
 
   let checkout_total_price = 0;
@@ -346,6 +393,7 @@ a:not([href]):not([tabindex]):hover {
 
 	            $('.price_discount').text('$'+response[0]);
 	            $('.final_price').text('$'+response[1]);
+              price_after_discount = response[1];
             
             }          
             

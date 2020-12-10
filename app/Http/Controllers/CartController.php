@@ -186,7 +186,7 @@ class CartController extends Controller
             }
 
         }catch(\Exception $e){
-            return Redirect::back()->with('error',$e->getMessage());
+            return $e->getMessage();
         }
     }
 

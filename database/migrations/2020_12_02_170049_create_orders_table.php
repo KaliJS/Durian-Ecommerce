@@ -26,8 +26,6 @@ class CreateOrdersTable extends Migration
             $table->text('address');
             $table->integer('pincode');
             $table->enum('order_status', ['booked', 'shipped','completed','cancelled','returned']);
-            $table->enum('payment_status', ['failed', 'pending','success']);
-            $table->string('paypal_transaction_id')->nullable();
             $table->timestamps();
         });
     }
