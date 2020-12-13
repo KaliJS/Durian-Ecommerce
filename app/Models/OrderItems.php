@@ -16,4 +16,8 @@ class OrderItems extends Model
     public function items(){
     	return $this->hasMany('App\Models\OrderItems','order_id','id');
     }
+
+    public function product_variant(){
+        return $this->hasOne('App\Models\ProductVariants','id','product_variant_id');
+    }
 }

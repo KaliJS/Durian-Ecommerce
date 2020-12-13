@@ -50,7 +50,7 @@
     						<div class="overlay"></div>
     					</a>
     					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="#">{{$product->name}}</a></h3>
+    						<h3><a href="{{url('/product/'.$product->slug)}}">{{$product->name}}</a></h3>
     						<div class="d-flex">
     							<div class="pricing">              
                     <p class="price">

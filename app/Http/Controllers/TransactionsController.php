@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Dashboard;
-use App\Models\User;
-use App\Models\Orders;
-use App\Models\Product;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class TransactionsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,15 +14,12 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $users = User::get();
-        $users = count($users);
-        $products = Product::get();
-        $products = count($products);
-        $orders = Orders::get();
-        $orders = count($orders);
-        $remaining_orders = Orders::where('order_status','!=','completed')->get();
-        $remaining_orders = count($remaining_orders);
-        return view('admin.dashboard.index',compact('users','products','orders','remaining_orders'));
+        try{
+            $transactions = Transaction::orderBy('id','desc')->get();
+            return view('admin.transactions.index',compact('transactions'));
+        }catch(\Exception $e){
+            return Redirect::back()->with('error',$e->getMessage());
+        }
     }
 
     /**
@@ -52,10 +46,10 @@ class DashboardController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Dashboard  $dashboard
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Dashboard $dashboard)
+    public function show($id)
     {
         //
     }
@@ -63,10 +57,10 @@ class DashboardController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Dashboard  $dashboard
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Dashboard $dashboard)
+    public function edit($id)
     {
         //
     }
@@ -75,10 +69,10 @@ class DashboardController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Dashboard  $dashboard
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Dashboard $dashboard)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -86,10 +80,10 @@ class DashboardController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Dashboard  $dashboard
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Dashboard $dashboard)
+    public function destroy($id)
     {
         //
     }

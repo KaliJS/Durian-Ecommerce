@@ -203,9 +203,9 @@ a:not([href]):not([tabindex]):hover {
 					<h3>Cart Totals</h3>
 					
 					<hr>
-					<p class="d-flex total-price">
-						<span>Total</span>
-						<span id="final_price">${{$total_price}}</span>
+					<p class="d-flex total-price text-dark">
+						<span>Total</span>$
+						<span id="final_price">{{$total_price}}</span>
 					</p>
 				</div>
 				<p><a href="{{url('/checkout')}}" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>

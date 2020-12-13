@@ -21,11 +21,13 @@ class CreateOrdersTable extends Migration
             $table->float('final_price',8,2);
             $table->float('delivery_charge',8,2);
             $table->enum('payment_method', ['cash', 'paypal']);
-            $table->float('latitude',8,2);
-            $table->float('longitude',8,2);
+            $table->float('latitude',8,2)->nullable();
+            $table->float('longitude',8,2)->nullable();
             $table->text('address');
             $table->integer('pincode');
             $table->enum('order_status', ['booked', 'shipped','completed','cancelled','returned']);
+            $table->foreign('delivery_boy_id')->references('id')->on('users')->onDelete('cascade');
+            $table->enum('payment_status', ['failed','pending','success','cash on delivery']);
             $table->timestamps();
         });
     }

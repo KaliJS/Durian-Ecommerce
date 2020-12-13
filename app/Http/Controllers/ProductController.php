@@ -185,7 +185,9 @@ class ProductController extends Controller
             DB::table('product_variants')->where('product_id',$product->id)->delete();
 
             $data=[];
+            
             $rows = count($unit_id);
+
 
             for ($i = 0; $i < $rows; $i++) {
                 $data[]=array('product_id'=>$product->id
@@ -193,6 +195,8 @@ class ProductController extends Controller
                         ,'mrp_price'=>$mrp_price[$i],'selling_price'=>$selling_price[$i],'in_stock'=>$in_stock[$i]
                     );
             }
+
+
 
             $insert_product_variant=DB::table('product_variants')->insert($data);
 

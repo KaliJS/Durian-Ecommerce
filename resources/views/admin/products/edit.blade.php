@@ -186,6 +186,10 @@
                            <div class='form-group'><label>Selling Price</label><input type='number' name='selling_price[]' class='form-control' required></div>
                         </div>
                         
+                           <input hidden
+                         type='number' name='in_stock[]' value="1" class='form-control'>
+                        
+                        
                         <div class='col-md-2 col-sm-12'>
                            <button class="btn btn-danger variant_remove mx-auto" style='margin-top:33px;' type="button"><i class="icon-copy dw dw-trash"></i></button>
                         </div>

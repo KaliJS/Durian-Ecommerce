@@ -16,4 +16,12 @@ class Orders extends Model
     public function items(){
     	return $this->hasMany('App\Models\OrderItems','order_id','id');
     }
+
+    public function user(){
+    	return $this->hasOne('App\Models\User','id','user_id');
+    }
+
+    public function delivery_boy(){
+    	return $this->hasOne('App\Models\User','id','delivery_boy_id');
+    }
 }

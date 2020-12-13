@@ -99,7 +99,7 @@
                         </a>
                         <div class="buttons">
                             <a href="{{url('/shop')}}" class="btn btn-primary py-2 px-4 mb-1">Continue Shopping</a>
-                            <a href="{{url('/cart')}}" style="margin-right: 5%;margin-left: 5%;" class="btn btn-primary py-2 px-4 mb-1">Veiw Cart</a>
+                            <a href="{{url('/cart')}}" style="margin-right: 5%;margin-left: 5%;" class="btn btn-primary py-2 px-4 mb-1">View Cart</a>
                             <a href="{{url('/checkout')}}" class="btn btn-primary py-2 px-4 mb-1">Checkout</a>
                         </div>
 
@@ -165,7 +165,6 @@
                   
                   <div class="col-sm-12 col-md-7 pt-1">
                     <select class="form-control col-12" name="unit" id="variant" required>
-                      <option selected disabled>Choose Variant</option>
                       @foreach($product->variants as $v)
                         <option value="{{$v->id}}" data-selling_price="{{$v->selling_price}}" data-mrp_price="{{$v->mrp_price}}" data-in_stock="{{$v->in_stock}}" data-quantity="{{$v->quantity}}">{{$v->quantity}}{{$v->unit->short_code}}</option>
                         @endforeach
@@ -246,7 +245,7 @@
     						<div class="overlay"></div>
     					</a>
     					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="#">{{$product->name}}</a></h3>
+    						<h3><a href="{{url('/product/'.$product->slug)}}">{{$product->name}}</a></h3>
     						<div class="d-flex">
     							<div class="pricing">              
                     <p class="price">
@@ -362,6 +361,8 @@
                $('#variant-details').removeClass('d-none');
 
             });
+
+            $("#variant").trigger("change");
 
             $(document).on("click",".add_to_cart",function(){
               const selected_product_id = this.id;

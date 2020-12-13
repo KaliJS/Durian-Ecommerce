@@ -48,6 +48,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    const DELIVERY_BOY_ROLE_ID = 3;
+    const USER_ROLE_ID = 4;
+
     public function role(){
         return $this->hasOne('App\Models\Role','id','role_id');
     }

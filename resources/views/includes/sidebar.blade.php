@@ -87,11 +87,12 @@
         <div class="menu-block customscroll">
             <div class="sidebar-menu">
                 <ul id="accordion-menu">
+
                     <li class="dropdown">
                         <a href="{{ url('/admin/dashboard') }}" class="dropdown-toggle no-arrow">
                             <span class="micon dw dw-house-1"></span><span class="mtext">Dashboard</span>
                         </a>
-                        
+
                     </li>
 
                     <li class="dropdown">
@@ -101,38 +102,55 @@
                         <ul class="submenu">
                             <li><a href="{{ url('/admin/products') }}">Products List</a></li>
                             <li><a href="{{ url('/admin/categories') }}">Categories</a></li>
-                            
+
                         </ul>
                     </li>
 
                     <li class="dropdown">
                         <a href="{{ url('/admin/users') }}" class="dropdown-toggle no-arrow">
                             <span class="micon  dw dw-user1"></span><span class="mtext">Users</span>
-                        </a>                   
+                        </a>
                     </li>
 
                     <li class="dropdown">
                         <a href="{{ url('/admin/roles') }}" class="dropdown-toggle no-arrow">
                             <span class="micon dw dw-settings2"></span><span class="mtext">Roles</span>
-                        </a>                       
+                        </a>
                     </li>
 
                     <li class="dropdown">
                         <a href="{{ url('/admin/promo') }}" class="dropdown-toggle no-arrow">
                             <span class="micon dw dw-calendar-8"></span><span class="mtext">Promo Codes</span>
-                        </a>                       
+                        </a>
                     </li>
 
                     <li class="dropdown">
                         <a href="{{ url('/admin/banner') }}" class="dropdown-toggle no-arrow">
-                            <span class="micon dw dw-image-12"></span><span class="mtext">Banners</span>
-                        </a>                       
+                            <span class="micon dw dw-image1"></span><span class="mtext">Banners</span>
+                        </a>
                     </li>
 
+                    <li class="dropdown">
+                        <a href="{{ url('/admin/orders') }}" class="dropdown-toggle no-arrow">
+                            <span class="micon dw dw-shopping-cart1"></span><span class="mtext">Orders</span>
+                        </a>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="{{ url('/admin/transactions') }}" class="dropdown-toggle no-arrow">
+                            <span class="micon dw dw-money-2"></span><span class="mtext">Transactions</span>
+                        </a>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="{{ url('/admin/delivery-management') }}" class="dropdown-toggle no-arrow">
+                            <span class="micon dw dw-time-management"></span><span class="mtext">Delivery Management</span>
+                        </a>
+                    </li>
 
                 </ul>
             </div>
         </div>
     </div>
-    
+
         <!-- Page sidebar Ends-->
